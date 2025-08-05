@@ -131,6 +131,41 @@ header .main-nav > li > a:hover {
 header .main-nav > li > a:hover::before {
   left: 0;
 }
+/* Start Mega menu */
+.mega-menu {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  top: 72px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 0 10px #262626;
+  display: none;
+  z-index: 1;
+  margin-right: 50px;
+  padding: 10px;
+  transition: var(--main-transition);
+}
+header .main-nav > li:hover .mega-menu {
+  display: block;
+}
+.mega-menu .image {
+  width: 50%;
+}
+.mega-menu .image img {
+  width: 100%;
+  height: auto;
+}
+.mega-menu .links {
+  width: 50%;
+  line-height: 1.7;
+  font-size: 20px;
+}
+.mega-menu .links a{
+  color: var(--main-color);
+}
+/* End Mega menu */
 /* End Heading */
 /* Start Landing */
 .landing{
@@ -157,12 +192,23 @@ header .main-nav > li > a:hover::before {
   flex: 1;
   width: 50%;
 }
+@media (max-width:991px) {
+  .landing .text{
+    text-align: center;
+  }
+}
+
 .landing .text h1{
   font-size: 40px;
   margin: 0;
   color: var(--main-color);
   font-weight: bold;
   letter-spacing: -2px;
+}
+@media (max-width:761px) {
+  .landing .text h1{
+    font-size: 28px;
+  }
 }
 .landing .text p{
   font-size: 24px;
@@ -171,6 +217,18 @@ header .main-nav > li > a:hover::before {
   margin: 5px 0 0;
   max-width: 500px;
 }
+@media (max-width:761px) {
+  .landing .text p{
+    font-size: 18px;
+  }
+}
+
+@media (max-width:991px) {
+  .landing .text p{
+    margin: 10px auto;
+  }
+}
+
 .landing .image{
   height: 400px;
   width: 50%;
@@ -179,18 +237,25 @@ header .main-nav > li > a:hover::before {
   background-repeat: no-repeat;
   animation:  linear 3s infinite normal none running landing-image ;
 }
+@media (max-width:991px) {
+  .landing .image{
+    display: none;
+  }
+}
+/* Start Animation */
 @keyframes landing-image {
   0% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(25px);
+    transform: translateY(50px);
   }
   100% {
     transform: translateY(0px);
   }
 }
-.landing .go-down{
+/* end Animation */
+.landing .go-down {
   color: var(--main-color);
   position: absolute;
   bottom: 30px;
@@ -198,7 +263,23 @@ header .main-nav > li > a:hover::before {
   transform: translateX(-50%);
   transition: var(--main-transition);
 }
-.landing .go-down:hover{
+.landing .go-down:hover {
   color: var(--main-color-alt);
 }
+.landing .go-down:hover {
+  color: var(--main-color-alt);
+}
+.landing .go-down i {
+  animation: bouncing 1.5s infinite;
+}
+/* Start animtion */
+@keyframes bouncing {
+  0%,10%,20%,30%,50%,70%,80%,90%,100%{
+    transform: translateY(0px);
+  }
+  40%,60% {
+    transform: translateY(-10px);
+  }
+}
+/* End animtion */
 /*End Landing */
