@@ -6,6 +6,49 @@
   --main-padding-bottom: 100px;
   --section-background: #ececec;
 }
+.main-title {
+  position: relative;
+  text-transform: uppercase;
+  margin: 0 auto 80px;
+  padding: 10px;
+  width: fit-content;
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+  border: 2px solid black;
+  z-index: 1;
+}
+.main-title::before,
+.main-title::after {
+  content: "";
+  position: absolute;
+  width:12px;
+  height:12px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.4s ease-in-out;
+}
+.main-title::before {
+  left: -30px;
+}
+.main-title::after {
+  right: -30px;
+}
+.main-title:hover{
+  color: white;
+  border: 2px solid white;
+  transition-delay: 0.5s;
+}
+.main-title:hover::before{
+  z-index: -1;
+  animation: left-move 0.5s linear forwards;
+}
+.main-title:hover::after{
+  z-index: -1;
+  animation: right-move 0.5s linear forwards;
+}
 
 /* !Start Global Rules */
 * {
@@ -131,41 +174,87 @@ header .main-nav > li > a:hover {
 header .main-nav > li > a:hover::before {
   left: 0;
 }
-/* Start Mega menu */
+/* *Start Mega menu */
 .mega-menu {
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  top: 72px;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 0 10px #262626;
-  display: none;
-  z-index: 1;
-  margin-right: 50px;
-  padding: 10px;
-  transition: var(--main-transition);
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    background-color: white;
+    z-index: -1;
+    display: flex;
+    top: calc(100% + 50px);
+    opacity: 0;
+    padding: 30px;
+    border-bottom: 3px solid var(--main-color);
+    gap: 40px;
+    transition: top var(--main-transition), opacity var(--main-transition);
+}
+@media (max-width: 991px) {
+  .mega-menu {
+    flex-direction: column;
+    gap: 0px;
+    padding: 5px;
+  }
+  
 }
 header .main-nav > li:hover .mega-menu {
-  display: block;
+  opacity: 1;
+  z-index: 100;
+  top: calc(100% + 1px);
 }
 .mega-menu .image {
   width: 50%;
 }
 .mega-menu .image img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+}
+@media (max-width: 991px) {
+  .mega-menu .image {
+    display: none;
+  }
 }
 .mega-menu .links {
-  width: 50%;
-  line-height: 1.7;
-  font-size: 20px;
+  min-width: 250px;
+  flex: 1;
 }
-.mega-menu .links a{
+.mega-menu .links li{
+  position: relative;
+}
+.mega-menu .links li:not(:last-child){
+  margin-bottom: 1px solid #e9e6e6;
+}
+@media(max-width:767px){
+  .mega-menu .links:first-of-type li:last-child{
+    margin-bottom: 1px solid #e9e6e6;    
+  }
+}
+
+.mega-menu .links li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background-color: #fafafa;
+  z-index: -1;
+  transition: var(--main-transition);
+}
+.mega-menu .links li:hover::before{
+  width: 100%;
+}
+
+.mega-menu .links li a{
   color: var(--main-color);
+  padding: 15px;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
 }
-/* End Mega menu */
+.mega-menu .links li i{
+  margin-right: 15px;
+}
+/* *End Mega menu */
 /* End Heading */
 /* Start Landing */
 .landing{
@@ -272,7 +361,44 @@ header .main-nav > li:hover .mega-menu {
 .landing .go-down i {
   animation: bouncing 1.5s infinite;
 }
-/* Start animtion */
+/*End Landing */
+/* Start Articles */
+.articles {
+  padding: var(--main-padding-top) 0 var(--main-padding-bottom);
+}
+.articles .boxes{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.articles .boxes .box{
+  width: 250px;
+  height: 100%;
+  border-radius: 5px;
+  margin: 20px;
+  background-color: white;
+  border-radius: 6px;
+
+}
+.articles .boxes .box .image {
+  width: 100%;
+  height: 60% ;
+}
+.articles .boxes .box .image img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  
+}
+.articles .boxes .box .text {
+  padding: 10px;
+  border-bottom: 1px solid #e9e6e6;
+}
+.articles .boxes .box .footer{
+  padding: 10px;
+  margin-top: 25px;
+}
+/* End Articles */
+/* !Start animtion */
 @keyframes bouncing {
   0%,10%,20%,30%,50%,70%,80%,90%,100%{
     transform: translateY(0px);
@@ -281,5 +407,30 @@ header .main-nav > li:hover .mega-menu {
     transform: translateY(-10px);
   }
 }
-/* End animtion */
-/*End Landing */
+@keyframes left-move {
+  50% {
+    left: 0px;
+    height: 12px;
+    width: 12px;
+  }
+  100% {
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+@keyframes right-move {
+  50% {
+    right: 0px;
+    height: 12px;
+    width: 12px;
+  }
+  100% {
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+/* !End animtion */
